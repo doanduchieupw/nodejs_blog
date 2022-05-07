@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const hbs = require('express-handlebars');
 const path = require('path');
+const methodOverride = require('method-override');
 const route = require('./routes');
 const db = require('./config/db');
 
@@ -19,6 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //HTTP logger
 app.use(morgan('combined'));
+
+// override with POST having ?_method
+app.use(methodOverride('_method'));
 
 //Template engine
 app.engine(
